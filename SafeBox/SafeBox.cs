@@ -8,8 +8,9 @@ namespace SafeBox
 {
     public class SafeBox
     {
-        int size;
+
         bool[,] data;
+        public int Size { get; private set; }
 
         public SafeBox()
         {
@@ -18,7 +19,7 @@ namespace SafeBox
 
         public SafeBox(int size)
         {
-            this.size = size;
+            this.Size = size;
             data = new bool[size, size];
             for (int i = 0; i < size; i++)
             {
@@ -29,15 +30,21 @@ namespace SafeBox
             }
         }
 
+        public bool GetData(int x, int y)
+        {
+            return data[x, y];
+        }
+
         public void ChangeValue(int x, int y)
         {
-            if (x < size && y < size)
+            if (x < Size && y < Size)
             {
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < Size; i++)
                 {
                     data[i, y] = !data[i, y];
                     data[x, i] = !data[x, i];
                 }
+                data[x,y] = !data[x, y]; 
             }
         }
 
@@ -60,11 +67,10 @@ namespace SafeBox
             int x, y;
             for (int i = 0; i < iterations; i++)
             {
-                x = random.Next(size);
-                y = random.Next(size);
+                x = random.Next(Size);
+                y = random.Next(Size);
                 ChangeValue(x, y);
             }
         }
-
     }
 }
